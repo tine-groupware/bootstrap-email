@@ -3,25 +3,20 @@
 namespace AntibodiesOnline\BootstrapEmail;
 
 use ScssPhp\ScssPhp\Compiler;
+use ScssPhp\ScssPhp\OutputStyle;
 
 class ScssCompiler
 {
     private $scssFile = 'bootstrap-email.scss';
     private $scssHeadFile = 'bootstrap-head.scss';
-    private $cacheOptions;
+
     private $compiler;
     private $importPaths = [__DIR__ . '/../resources/'];
 
-    public function __construct($cacheOptions = null)
+    public function __construct()
     {
-        if (is_array($cacheOptions) && isset($cacheOptions['cacheDir'])) {
-            if (!is_dir($cacheOptions['cacheDir'])) {
-                mkdir($cacheOptions['cacheDir'], 0775);
-            }
-        }
-        $this->cacheOptions = $cacheOptions;
-
-        $this->compiler = new Compiler($this->cacheOptions);
+        $this->compiler = new Compiler();
+        $this->compiler->setOutputStyle(\ScssPhp\ScssPhp\OutputStyle::EXPANDED);
     }
 
     /**
